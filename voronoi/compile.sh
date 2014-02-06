@@ -11,8 +11,6 @@ cd "$self"
 name=voronoi
 tmpfile=/tmp/.shape.$EUID.$$.$(date +%s).$RANDOM
 
-openscad -o ${name}.stl ${name}.scad
-
 slic3r \
 	 --layer-height 0.25 \
 	 --perimeters 3 \
