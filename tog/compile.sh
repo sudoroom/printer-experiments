@@ -9,9 +9,6 @@ self=$(dirname "${self}") || exit 1
 cd "$self"
 
 name=tog
-tmpfile=/tmp/.shape.$EUID.$$.$(date +%s).$RANDOM
-
-openscad -o ${name}.stl ${name}.scad
 
 slic3r \
 	 --layer-height 0.25 \
@@ -23,9 +20,7 @@ slic3r \
 	 --print-center 100,100 \
 	 --skirts 4 \
 	 --fill-density 0.16 \
-	 -o ${tmpfile} ${name}.stl
+	 -o ${name}.gcode ${name}.stl
 
-sed -i 's/M104 S200/M104 S220/' ${tmpfile}
-sed -i 's/M109 S200/M109 S220/' ${tmpfile}
-
-mv -f ${tmpfile} ${name}.gcode
+sed -i 's/M104 S200/M104 S220/' ${name}.gcode
+sed -i 's/M109 S200/M109 S220/' ${name}.gcode
