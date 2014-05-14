@@ -24,7 +24,7 @@ slic3r \
 	 --temperature 220 \
 	 --print-center 160,60 \
 	 --skirts 4 \
-	 --fill-density 0.16 \
+	 --fill-density 0.2 \
 	 -o ${name}.gcode ${name}.stl
 
 sed -i 's/M104 S200/M104 S220/' ${name}.gcode
