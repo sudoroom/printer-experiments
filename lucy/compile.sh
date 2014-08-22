@@ -8,7 +8,12 @@ self=$(readlink -e "$0") || exit 1
 self=$(dirname "${self}") || exit 1
 cd "$self"
 
-name=lucycat
+name=lucytall
+
+ionice -c 3 -p $$
+renice -n 19 $$
+
+openscad -o ${name}.stl ${name}.scad
 
 slic3r \
 	 --layer-height 0.25 \
@@ -19,7 +24,7 @@ slic3r \
 	 --temperature 220 \
 	 --print-center 60,160 \
 	 --skirts 4 \
-	 --fill-density 0.16 \
+	 --fill-density 16% \
 	 -o ${name}.gcode ${name}.stl
 
 sed -i 's/M104 S200/M104 S220/' ${name}.gcode
